@@ -47,7 +47,7 @@ interface Backup {
 
 export class SupabaseService {
   private static readonly SUPABASE_API_URL = "https://api.supabase.com/v1";
-  private static readonly GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${"AIzaSyCtyuCtstXENJNXPUnxO8teX7G-dnU4CSE"}`;
+  private static readonly GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
   public static fetchProjects = async (
     token: string

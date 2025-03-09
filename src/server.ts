@@ -6,6 +6,7 @@ import * as swaggerDocument from "./api-docs/swagger.json";
 import logger from "./config/logger";
 import dotenv from "dotenv";
 import router from "./api/routes";
+import axios from "axios";
 
 dotenv.config();
 
@@ -44,6 +45,9 @@ app.use(
 
 app.listen(PORT, () => {
   logger.info(`🚀 Server is running on http://localhost:${PORT}`);
+  setTimeout(() => {
+    axios.get(`${process.env.BASE_URL}/api`);
+  }, 15000);
 });
 
 export default app;
