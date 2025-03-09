@@ -1,0 +1,1 @@
+{"root":["./src/server.ts","./src/api/routes.ts","./src/api/health-check/health-check.controller.ts","./src/api/health-check/health-check.routes.ts","./src/api/supabase/supabase.controller.ts","./src/api/supabase/supabase.routes.ts","./src/api/supabase/supabase.service.ts","./src/common/http-status.enum.ts","./src/config/logger.ts"],"errors":true,"version":"5.8.2"}

@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Supabase Compliance API",
+        "version": "1.0.0",
+        "description": "API documentation for Supabase compliance service"
+    },
+    "servers": [{
+        "url": "http://localhost:3000/api",
+        "description": "Local server"
+    }],
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Health check endpoint",
+                "operationId": "healthCheck",
+                "responses": {
+                    "200": {
+                        "description": "Server is healthy",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "OK"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/supabase/projects": {
+            "get": {
+                "summary": "Fetch all projects",
+                "operationId": "getProjects",
+                "parameters": [
+                    {
+                        "name": "supabase-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved projects",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/supabase/organisation/{organisationId}/users": {
+            "get": {
+                "summary": "Fetch users by organisation",
+                "operationId": "getUsersByOrganisation",
+                "parameters": [
+                    {
+                        "name": "organisationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "supabase-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/supabase/project/{projectId}/tables": {
+            "get": {
+                "summary": "Fetch tables by project",
+                "operationId": "getTablesByProject",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "supabase-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved tables",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/supabase/project/{projectId}/table/{tableName}/enable-rls": {
+            "put": {
+                "summary": "Enable RLS for a table",
+                "operationId": "enableRlsForTable",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "tableName",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "supabase-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully enabled RLS for the table",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/supabase/ai-response": {
+            "post": {
+                "summary": "Get AI response",
+                "operationId": "getAiResponse",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": { "type": "string" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved AI response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "type": "object" },
+                    "message": { "type": "string" }
+                }
+            },
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "success": { 
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": { 
+                        "type": "string",
+                        "example": "Supabase token is required"
+                    }
+                }
+            }
+        }
+    }
+}
