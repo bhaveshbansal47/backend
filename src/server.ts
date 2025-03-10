@@ -45,7 +45,7 @@ app.use(
 
 app.listen(PORT, () => {
   logger.info(`🚀 Server is running on http://localhost:${PORT}`);
-  setTimeout(() => {
+  setInterval(() => {
     axios.get(`${process.env.BASE_URL}/api`);
   }, 15000);
 });
